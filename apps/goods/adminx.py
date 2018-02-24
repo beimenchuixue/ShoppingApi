@@ -1,27 +1,13 @@
-#!/usr/bin/env python
-# encoding: utf-8
-
-"""
-@version: 1.0
-@author: liyao
-@license: Apache Licence 
-@contact: yli@posbao.net
-@site: http://www.piowind.com/
-@software: PyCharm
-@file: adminx.py
-@time: 2017/7/4 17:04
-"""
 import xadmin
 from .models import Goods, GoodsCategory, GoodsImage, GoodsCategoryBrand, Banner, HotSearchWords
 from .models import IndexAd
 
+
 class GoodsAdmin(object):
-    list_display = ["name", "click_num", "sold_num", "fav_num", "goods_num", "market_price",
-                    "shop_price", "goods_brief", "goods_desc", "is_new", "is_hot", "add_time"]
-    search_fields = ['name', ]
+    list_display = ['name']
+    search_fields = ['name']
     list_editable = ["is_hot", ]
-    list_filter = ["name", "click_num", "sold_num", "fav_num", "goods_num", "market_price",
-                   "shop_price", "is_new", "is_hot", "add_time", "category__name"]
+    # list_filter = ['name']
     style_fields = {"goods_desc": "ueditor"}
 
     class GoodsImagesInline(object):

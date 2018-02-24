@@ -1,4 +1,4 @@
-from datetime import  datetime
+from datetime import datetime
 
 from django.db import models
 
@@ -58,13 +58,13 @@ class Goods(models.Model):
     """
     商品
     """
-    category = models.ForeignKey(GoodsCategory, on_delete=models.CASCADE, verbose_name='商品类目', help_text='商品类目')
+    category = models.ForeignKey(GoodsCategory, on_delete=models.CASCADE, null=True, blank=True, verbose_name='商品类目', help_text='商品类目')
     goods_sn = models.CharField(max_length=20,  verbose_name='商品唯一货号', help_text='商品唯一货号')
     name = models.CharField(max_length=50, verbose_name='商品名', help_text='商品名')
-    good_brief = models.TextField(max_length=500, verbose_name='商品简单描叙')
-    good_desc = UEditorField(verbose_name='商品详情', imagePath='goods/images', width=1000,
-                             height=300, filePath='goods/files', null=True, blank=True, help_text='商品详情')
-    goods_front_image = models.ImageField(max_length=50, upload_to='goods/images',
+    goods_brief = models.TextField(max_length=500, verbose_name='商品简单描叙')
+    goods_desc = UEditorField(verbose_name='商品详情', imagePath='goods/images/', width=1000,
+                             height=300, filePath='goods/files/', null=True, blank=True, help_text='商品详情')
+    goods_front_image = models.ImageField(max_length=50, upload_to='goods/images/',
                                           verbose_name='商品封面', help_text='商品封面')
     # 统计
     goods_num = models.IntegerField(default=0, verbose_name='商品库存量', help_text='商品库存量')
@@ -85,6 +85,21 @@ class Goods(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class IndexAd(models.Model):
+    """
+    首页商品类别广告
+    """
+    category = models.ForeignKey(GoodsCategory, related_name='category', null=True, blank=True, verbose_name="商品类目", help_text='商品类目')
+    goods = models.ForeignKey(Goods, related_name='商品', help_text='商品')
+
+    class Meta:
+        verbose_name = '首页商品类别广告'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.goods.name
 
 
 class GoodsImage(models.Model):
@@ -108,7 +123,7 @@ class Banner(models.Model):
     商品轮播图
     """
     goods = models.ForeignKey(Goods, on_delete=models.CASCADE, verbose_name='商品名', help_text='商品名')
-    image = models.ImageField(max_length=100, upload_to='banner', verbose_name='轮播图', help_text='轮播图')
+    image = models.ImageField(max_length=100, upload_to='banner/', verbose_name='轮播图', help_text='轮播图')
     index = models.ImageField(default=0, verbose_name='轮播顺序', help_text='轮播顺序')
 
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间', help_text='添加时间')
@@ -121,7 +136,7 @@ class Banner(models.Model):
         return self.goods.name
 
 
-class HostSearchWords(models.Model):
+class HotSearchWords(models.Model):
     """
     热搜词
     """

@@ -1,9 +1,11 @@
 Django==1.11.10
 pillow
 mysqlclient
+
 djangorestframework-jwt
 djangorestframework
 markdown
+
 django-filter
 django-crispy-forms
 django-reversion
@@ -11,11 +13,12 @@ django-formtools
 future
 httplib2
 six
+xlwt
+xlsxwriter
+
 requests
 coreapi
 django-cors-headers
-xlwt
-xlsxwriter
 drf-extensions
 django-redis
 pycryptodome

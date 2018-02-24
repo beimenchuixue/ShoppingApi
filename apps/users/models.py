@@ -1,22 +1,20 @@
 from django.db import models
-# from django.contrib.auth.models import AbstractUser
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from django.contrib.auth.models import AbstractUser
 
 
-class UserProfile(User):
+class UserProfile(AbstractUser):
     """
     用户信息，继承并扩展默认表
     """
     gender_choice = (
-        (0, '男'),
-        (1, '女')
+        ('male', '男'),
+        ('female', '女')
     )
     name = models.CharField(max_length=20, null=True, blank=True, verbose_name='用户名', help_text='用户名')
     birthday = models.DateField(null=True, blank=True, verbose_name='生日', help_text='生日')
     mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name='手机号码', help_text='手机号码')
-    gender = models.IntegerField(default=1, verbose_name='性别', help_text='性别')
+    gender = models.CharField(default='female', choices=gender_choice, max_length=6,
+                              verbose_name='性别', help_text='性别')
 
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间', help_text='添加时间')
 

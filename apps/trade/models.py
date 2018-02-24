@@ -1,4 +1,4 @@
-from datetime import  datetime
+from datetime import datetime
 
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -14,16 +14,17 @@ class ShoppingCart(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户', help_text='用户')
     goods = models.ForeignKey(Goods, on_delete=models.CASCADE, verbose_name='商品', help_text='商品')
-    goods_num = models.IntegerField(default=0, verbose_name='购买数量')
+    nums = models.IntegerField(default=0, verbose_name='购买数量')
 
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间', help_text='添加时间')
 
     class Meta:
         verbose_name = '购物车'
         verbose_name_plural = verbose_name
+        unique_together = ("user", "goods")
 
     def __str__(self):
-        return self.user.name
+        return "%s(%d)".format(self.goods.name, self.nums)
 
 
 class OrderInfo(models.Model):
@@ -43,6 +44,7 @@ class OrderInfo(models.Model):
     order_sn = models.CharField(max_length=30, unique=True, verbose_name='订单编号', help_text='订单编号')
     trade_no = models.CharField(max_length=100, unique=True, verbose_name='第三方支付编号', help_text='第三方支付编号')
     order_mount = models.FloatField(default=0, verbose_name='支付金额', help_text='支付金额')
+    pay_status = models.CharField(max_length=10, choices=status_choice, null=True, blank=True, verbose_name='支付状态', help_text='支付状态')
     pay_time = models.DateTimeField(default=datetime.now, verbose_name='支付时间', help_text='支付时间')
     address = models.CharField(max_length=100, verbose_name='收货地址', help_text='收货地址')
     pay_type = models.CharField(max_length=10, default='alipay', choices=pay_style, verbose_name='支付类型', help_text='支付类型')
