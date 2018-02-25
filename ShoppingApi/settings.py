@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'user_operation.apps.UserOperationConfig',
     'crispy_forms',
     'xadmin',
-    'DjangoUeditor'
+    'DjangoUeditor',
+    'rest_framework'
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -137,3 +138,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 配置上传或后台显示静态文件路径
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

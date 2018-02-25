@@ -38,7 +38,7 @@ class GoodsCategoryBrand(models.Model):
     """
     品牌
     """
-    category = models.ForeignKey(GoodsCategory, on_delete=models.CASCADE, related_name='brands',
+    category = models.ForeignKey(GoodsCategory, related_name='brands',
                                 null=True, blank=True, verbose_name='商品类目', help_text='商品类目')
     name = models.CharField(max_length=30, default='', verbose_name='品牌名', help_text='品牌名')
     desc = models.TextField(max_length=200, default='', verbose_name='品牌描叙',  help_text='品牌描叙')
@@ -58,7 +58,7 @@ class Goods(models.Model):
     """
     商品
     """
-    category = models.ForeignKey(GoodsCategory, on_delete=models.CASCADE, null=True, blank=True, verbose_name='商品类目', help_text='商品类目')
+    category = models.ForeignKey(GoodsCategory, null=True, blank=True, verbose_name='商品类目', help_text='商品类目')
     goods_sn = models.CharField(max_length=20,  verbose_name='商品唯一货号', help_text='商品唯一货号')
     name = models.CharField(max_length=50, verbose_name='商品名', help_text='商品名')
     goods_brief = models.TextField(max_length=500, verbose_name='商品简单描叙')
@@ -104,7 +104,7 @@ class IndexAd(models.Model):
 
 class GoodsImage(models.Model):
     """商品图片"""
-    goods = models.ForeignKey(Goods, on_delete=models.CASCADE, related_name='image', verbose_name='商品名', help_text='商品名')
+    goods = models.ForeignKey(Goods, related_name='image', verbose_name='商品名', help_text='商品名')
     image = models.ImageField(max_length=100, upload_to='goods/', verbose_name='图片', help_text='图片')
     image_url = models.URLField(max_length=300, null=True, blank=True, verbose_name='图片地址', help_text='图片地址')
 
@@ -122,7 +122,7 @@ class Banner(models.Model):
     """
     商品轮播图
     """
-    goods = models.ForeignKey(Goods, on_delete=models.CASCADE, verbose_name='商品名', help_text='商品名')
+    goods = models.ForeignKey(Goods, verbose_name='商品名', help_text='商品名')
     image = models.ImageField(max_length=100, upload_to='banner/', verbose_name='轮播图', help_text='轮播图')
     index = models.ImageField(default=0, verbose_name='轮播顺序', help_text='轮播顺序')
 

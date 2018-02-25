@@ -12,8 +12,8 @@ class ShoppingCart(models.Model):
     """
     购物车
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户', help_text='用户')
-    goods = models.ForeignKey(Goods, on_delete=models.CASCADE, verbose_name='商品', help_text='商品')
+    user = models.ForeignKey(User, verbose_name='用户', help_text='用户')
+    goods = models.ForeignKey(Goods,verbose_name='商品', help_text='商品')
     nums = models.IntegerField(default=0, verbose_name='购买数量')
 
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间', help_text='添加时间')
@@ -40,7 +40,7 @@ class OrderInfo(models.Model):
         ('alipay', '支付宝'),
         ('wechat', '微信')
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='用户', help_text='用户')
+    user = models.ForeignKey(User, verbose_name='用户', help_text='用户')
     order_sn = models.CharField(max_length=30, unique=True, verbose_name='订单编号', help_text='订单编号')
     trade_no = models.CharField(max_length=100, unique=True, verbose_name='第三方支付编号', help_text='第三方支付编号')
     order_mount = models.FloatField(default=0, verbose_name='支付金额', help_text='支付金额')
@@ -66,8 +66,8 @@ class OrderGoods(models.Model):
     """
     订单商品
     """
-    order = models.ForeignKey(OrderInfo, on_delete=models.CASCADE, verbose_name='订单信息', help_text='订单信息')
-    goods = models.ForeignKey(Goods, on_delete=models.CASCADE, verbose_name='商品', help_text='商品')
+    order = models.ForeignKey(OrderInfo, verbose_name='订单信息', help_text='订单信息')
+    goods = models.ForeignKey(Goods, verbose_name='商品', help_text='商品')
     goods_num = models.IntegerField(default=0, verbose_name='商品数量', help_text='商品数量')
 
     add_time = models.DateTimeField(auto_now_add=True, verbose_name='添加时间', help_text='添加时间')
