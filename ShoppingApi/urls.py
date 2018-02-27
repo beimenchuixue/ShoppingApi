@@ -16,11 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.views.static import serve
 from ShoppingApi.settings import MEDIA_ROOT
-
+from rest_framework.routers import DefaultRouter
+from rest_framework.documentation import include_docs_urls
 import xadmin
 
-from goods.views import GoodsListView
-from rest_framework.documentation import include_docs_urls
+from goods.views import GoodsViewSet
+
+router = DefaultRouter()
+# 绑定url
+router.register(r'goods', GoodsViewSet)
 
 urlpatterns = [
     # xadmin 后台
@@ -31,6 +35,6 @@ urlpatterns = [
     url(r'^docs/', include_docs_urls(title='生鲜商城')),
     # 用户登录接口
     url(r'^api-auth/', include('rest_framework.urls')),
-
-    url(r'^goods/$', GoodsListView.as_view()),
+    # 通过 router来管理url接口
+    url(r'', include(router.urls))
 ]

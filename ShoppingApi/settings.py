@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'xadmin',
     'DjangoUeditor',
-    'rest_framework'
+    'rest_framework',
+    'django_filters',
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -142,3 +143,8 @@ STATIC_URL = '/static/'
 # 配置上传或后台显示静态文件路径
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+# }
