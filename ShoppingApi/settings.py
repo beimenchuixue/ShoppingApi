@@ -50,13 +50,20 @@ INSTALLED_APPS = [
     'xadmin',
     'DjangoUeditor',
     'rest_framework',
+    # 过滤
     'django_filters',
+    # 跨域
+    'corsheaders',
+    # 用户验证
+    'rest_framework.authtoken'
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+	'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,6 +73,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'ShoppingApi.urls'
 
 TEMPLATES = [
@@ -148,3 +156,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # REST_FRAMEWORK = {
 #     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 # }
+
+REST_FRAMEWORK = {
+    # 登录验证
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}

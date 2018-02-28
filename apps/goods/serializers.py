@@ -19,3 +19,34 @@ class GoodsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goods
         fields = '__all__'
+
+
+class CategorySerializer3(serializers.ModelSerializer):
+    """
+    三级类
+    """
+    class Meta:
+        model = GoodsCategory
+        fields = '__all__'
+
+
+class CategorySerializer2(serializers.ModelSerializer):
+    """
+    二级类
+    """
+    sub_cat = CategorySerializer3(many=True)
+    class Meta:
+        model = GoodsCategory
+        fields = '__all__'
+
+
+class GoodsCategorySerializer(serializers.ModelSerializer):
+    """
+    一级类
+    """
+    # 返回多条数据需要给定 many=True参数
+    sub_cat = CategorySerializer2(many=True)
+
+    class Meta:
+        model = GoodsCategory
+        fields = '__all__'
