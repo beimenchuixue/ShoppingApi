@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import sys
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -142,6 +143,10 @@ USE_L10N = True
 
 USE_TZ = False
 
+# 自定义用户验证类
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -158,10 +163,28 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # }
 
 REST_FRAMEWORK = {
+    # 全局认证
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
     # 登录验证
     'DEFAULT_AUTHENTICATION_CLASSES': (
+
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        # JWT 认证
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 全局Token验证
+        # 'rest_framework.authentication.TokenAuthentication',
     )
+}
+
+
+JWT_AUTH = {
+    # 令牌过期时间, seconds表示秒， days表示天
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
+    # 令牌刷新间隔时间
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    # 设置Token添加前缀
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }

@@ -19,6 +19,7 @@ from ShoppingApi.settings import MEDIA_ROOT
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
 from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
 import xadmin
 
 from goods.views import GoodsViewSet, CategoryViewSet
@@ -41,5 +42,7 @@ urlpatterns = [
     # 通过 router来管理url接口
     url(r'', include(router.urls)),
     # 用户 token验证接口, 用户提交用户名或密码验证获取token接口
-    url(r'^api-token-auth/', views.obtain_auth_token)
+    url(r'^api-token-auth/', views.obtain_auth_token),
+    # JWT 验证接口
+    url(r'^login/', obtain_jwt_token)
 ]

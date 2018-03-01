@@ -1,8 +1,8 @@
 from goods.serializers import GoodsSerializer, GoodsCategorySerializer
 from rest_framework import mixins, viewsets
 from rest_framework import filters
-
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.authentication import TokenAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Goods, GoodsCategory
@@ -24,6 +24,8 @@ class GoodsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     商品列表, 分页， 搜索， 过滤， 排序
     """
+    # Token验证
+    authentication_classes = (TokenAuthentication, )
     queryset = Goods.objects.all()
     # 指定显示字段
     serializer_class = GoodsSerializer
