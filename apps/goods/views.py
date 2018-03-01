@@ -26,6 +26,7 @@ class GoodsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     # Token验证
     authentication_classes = (TokenAuthentication, )
+    # 查询到的数据库数据
     queryset = Goods.objects.all()
     # 指定显示字段
     serializer_class = GoodsSerializer

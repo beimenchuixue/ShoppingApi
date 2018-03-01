@@ -18,17 +18,19 @@ from django.views.static import serve
 from ShoppingApi.settings import MEDIA_ROOT
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
-from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 import xadmin
 
 from goods.views import GoodsViewSet, CategoryViewSet
+from users.views import SmsCodeViewSet
 
 router = DefaultRouter()
 # 获取商品列表信息
 router.register(r'goods', GoodsViewSet)
 # 获取类别信息
 router.register(r'categorys', CategoryViewSet)
+# 注册发送短信验证码接口
+router.register(r'codes', SmsCodeViewSet, base_name='发送短信接口')
 
 urlpatterns = [
     # xadmin 后台
@@ -41,8 +43,8 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     # 通过 router来管理url接口
     url(r'', include(router.urls)),
-    # 用户 token验证接口, 用户提交用户名或密码验证获取token接口
-    url(r'^api-token-auth/', views.obtain_auth_token),
+    # # 用户 token验证接口, 用户提交用户名或密码验证获取token接口
+    # url(r'^api-token-auth/', views.obtain_auth_token),
     # JWT 验证接口
     url(r'^login/', obtain_jwt_token)
 ]
