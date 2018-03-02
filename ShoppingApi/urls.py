@@ -22,7 +22,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 import xadmin
 
 from goods.views import GoodsViewSet, CategoryViewSet
-from users.views import SmsCodeViewSet
+from users.views import SmsCodeViewSet, UserRegisterViewSet
 
 router = DefaultRouter()
 # 获取商品列表信息
@@ -31,7 +31,8 @@ router.register(r'goods', GoodsViewSet)
 router.register(r'categorys', CategoryViewSet)
 # 注册发送短信验证码接口
 router.register(r'codes', SmsCodeViewSet, base_name='发送短信接口')
-
+# 用户注册接口
+router.register(r'register', UserRegisterViewSet, base_name='用户注册')
 urlpatterns = [
     # xadmin 后台
     url(r'^xadmin/', xadmin.site.urls),

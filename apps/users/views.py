@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 UserProfile = get_user_model()
 from users.models import VerifyCode
-from users.serializers import SmsSerializer
+from users.serializers import SmsSerializer, UserRegisterSerializer
 
 from utils.yunpian import YunPian
 
@@ -68,5 +68,9 @@ class SmsCodeViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             }, status.HTTP_400_BAD_REQUEST)
 
 
-
-
+class UserRegisterViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+    创建用户
+    """
+    serializer_class = UserRegisterSerializer
+    queryset = UserProfile.objects.all()
