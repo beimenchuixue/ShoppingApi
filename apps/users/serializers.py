@@ -61,17 +61,17 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         'input_type': 'password'
     }, label='密码', write_only=True)
 
-    def create(self, validated_data):
-        """
-        进行明文密码进行加密
-        :param validated_data:
-        :return:
-        """
-        # 重写但是又继承父类的方法
-        user = super(UserRegisterSerializer, self).create(validated_data=validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+    # def create(self, validated_data):
+    #     """
+    #     进行明文密码进行加密
+    #     :param validated_data:
+    #     :return:
+    #     """
+    #     # 重写但是又继承父类的方法
+    #     user = super(UserRegisterSerializer, self).create(validated_data=validated_data)
+    #     user.set_password(validated_data['password'])
+    #     user.save()
+    #     return user
 
     def validate_code(self, code):
         """

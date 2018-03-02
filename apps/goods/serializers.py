@@ -4,7 +4,16 @@ __date__ = '2018/2/24 17:04'
 
 from rest_framework import serializers
 from goods.models import Goods
-from goods.models import GoodsCategory
+from goods.models import GoodsCategory, GoodsImage
+
+
+class GoodsImageSerializer(serializers.ModelSerializer):
+    """
+    商品相关的轮播图
+    """
+    class Meta:
+        model = GoodsImage
+        fields = '__all__'
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -15,6 +24,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class GoodsSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
+    image = GoodsImageSerializer(many=True)
 
     class Meta:
         model = Goods

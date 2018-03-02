@@ -20,9 +20,12 @@ class GoodsPagination(PageNumberPagination):
     max_page_size = 10
 
 
-class GoodsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class GoodsViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     商品列表, 分页， 搜索， 过滤， 排序
+    ListModelMixin 列表展示信息
+    RetrieveModelMixin  列表页 > 详情页
+
     """
     # Token验证
     authentication_classes = (TokenAuthentication, )
