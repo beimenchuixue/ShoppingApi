@@ -27,8 +27,8 @@ class GoodsViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Ge
     RetrieveModelMixin  列表页 > 详情页
 
     """
-    # Token验证
-    authentication_classes = (TokenAuthentication, )
+    # Token验证，传统token验证
+    # authentication_classes = (TokenAuthentication, )
     # 查询到的数据库数据
     queryset = Goods.objects.all()
     # 指定显示字段
@@ -50,6 +50,8 @@ class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets
     """
     list:
         商品分类列表数据
+    retrieve:
+        获取商品详情信息
     """
     queryset = GoodsCategory.objects.all()
     serializer_class = GoodsCategorySerializer

@@ -23,22 +23,26 @@ import xadmin
 
 from goods.views import GoodsViewSet, CategoryViewSet
 from users.views import SmsCodeViewSet, UserRegisterViewSet
+from user_operation.views import UserFavViewSet
 
 router = DefaultRouter()
 # 获取商品列表信息
-router.register(r'goods', GoodsViewSet)
+router.register(r'goods', GoodsViewSet, base_name='goods')
 # 获取类别信息
-router.register(r'categorys', CategoryViewSet)
+router.register(r'categorys', CategoryViewSet, base_name='categorys')
 # 注册发送短信验证码接口
-router.register(r'codes', SmsCodeViewSet, base_name='发送短信接口')
+router.register(r'codes', SmsCodeViewSet, base_name='codes')
 # 用户注册接口
-router.register(r'register', UserRegisterViewSet, base_name='用户注册')
+router.register(r'register', UserRegisterViewSet, base_name='register')
+# 收藏
+router.register(r'userfav', UserFavViewSet, base_name='userfav')
+
 urlpatterns = [
     # xadmin 后台
     url(r'^xadmin/', xadmin.site.urls),
     # 上传文件地址
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
-    # 文档
+    # 文档， title 指定文档后台的总标题
     url(r'^docs/', include_docs_urls(title='生鲜商城')),
     # 用户登录接口
     url(r'^api-auth/', include('rest_framework.urls')),

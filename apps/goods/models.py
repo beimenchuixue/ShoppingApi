@@ -15,6 +15,7 @@ class GoodsCategory(models.Model):
         (3, "三级类目"),
     )
 
+    # help_text 是用户后台 description 提示信息
     name = models.CharField(max_length=50, verbose_name='类别名', help_text='类别名')
     code = models.CharField(max_length=30, verbose_name='类别code', help_text='类别code')
     desc = models.CharField(max_length=200, verbose_name='类别描述', help_text='类别描述')

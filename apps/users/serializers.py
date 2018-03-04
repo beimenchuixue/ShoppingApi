@@ -51,11 +51,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     })
 
     username = serializers.CharField(required=True, allow_blank=False,
-                                     validators=[UniqueValidator(queryset=UserProfile.objects.all())],
+                                     validators=[UniqueValidator(queryset=UserProfile.objects.all(), message="用户已经注册")],
                                      label='用户名', error_messages={
             'blank': '用户名不能为空',
             'required': '请输入用户名',
-            'validators': '用户已经注册'
         })
     password = serializers.CharField(style={
         'input_type': 'password'

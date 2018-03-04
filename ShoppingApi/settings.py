@@ -172,8 +172,8 @@ REST_FRAMEWORK = {
 
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # JWT 认证
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # JWT 认证。不应该配置全局进行验证，应该对吗每个特殊的view或接口需要设置验证
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         # 全局Token验证
         # 'rest_framework.authentication.TokenAuthentication',
     )
